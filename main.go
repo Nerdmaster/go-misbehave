@@ -124,8 +124,8 @@ func randomTag() (output string, newtag string) {
 	case 9:
 		var attr = randAttr()
 		var val = randVal()
-		var word = randWord()
-		return fmt.Sprintf(`<a href="/misbehave/%s" %s=%q>%s</a>`, word, attr, val, randContent()), ""
+		var word1, word2, word3, word4 = randWord(), randWord(), randWord(), randWord()
+		return fmt.Sprintf(`<a href="/misbehave/%s/%s/%s/%s" %s=%q>%s</a>`, word1, word2, word3, word4, attr, val, randContent()), ""
 	default:
 		return "", ""
 	}
