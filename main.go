@@ -104,6 +104,8 @@ func generateHTML(w http.ResponseWriter, duration time.Duration, byteLimit int) 
 		time.Sleep(time.Millisecond * 1)
 	}
 
+	log.Printf("- Duration: %s", time.Since(startTime))
+	log.Printf("- Bytes sent: %d", totalBytes)
 	for i := len(openTags) - 1; i >= 0; i-- {
 		var indent = strings.Repeat("  ", i)
 		fmt.Fprintf(w, "%s</%s>\n", indent, openTags[i])
