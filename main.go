@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"sync/atomic"
 	"time"
 )
 
@@ -22,9 +23,10 @@ func main() {
 
 	loadWords()
 
-	var connum int64
+	var connections atomic.Int64
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		connum++
+		connections.Add(1)
+		var connum = connections.Load()
 		var ip = strings.TrimSpace(strings.Split(r.Header.Get("X-Forwarded-For"), ",")[0])
 		var ua = r.Header.Get("User-Agent")
 		log.Printf("Connection %d started from %q: %s %s (UA: %q)", connum, ip, r.Method, r.RequestURI, ua)
